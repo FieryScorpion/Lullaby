@@ -1,0 +1,5 @@
+interface searchProps {
+    searchParams: {
+        title:
+    }
+}

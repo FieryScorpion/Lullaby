@@ -1,0 +1,3 @@
+const UploadModal = () => {
+    return ()
+}

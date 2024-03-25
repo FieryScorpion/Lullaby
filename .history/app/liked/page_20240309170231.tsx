@@ -1,0 +1,47 @@
+import React, { useEffect, useState } from 'react';
+import Header from '@/components/Header'; // Adjust import path
+import Image from 'next/image';
+import LikedContent from './components/LikedContent';
+import getLikedSongs from '@/actions/getLikedSongs';
+
+export const revalidate = 0; // Corrected revalidate syntax
+
+const Liked = () => {
+    const [songs, setSongs] = useState([]);
+
+    useEffect(() => {
+        const fetchLikedSongs = async () => {
+            try {
+                const likedSongs = await getLikedSongs();
+                setSongs(likedSongs);
+            } catch (error) {
+                console.error('Error fetching liked songs:', error);
+            }
+        };
+
+        fetchLikedSongs();
+    }, []);
+
+    return (
+        <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
+            <Header>
+                <div className="mt-20">
+                    <div className="flex flex-col md:flex-row items-center gap-x-5">
+                        <div className="relative h-32 w-32 lg:h-44 lg:w-44">
+                            <Image fill alt="Playlist" className="object-cover" src="/images/liked.png" />
+                        </div>
+                        <div className="flex flex-col gap-y-2 mt-4 md:mt-0">
+                            <p className="hidden md:block font-semibold text-sm">Playlist</p>
+                            <h1 className="text-white text-4xl sm:text-5xl lg:text-7xl font-bold">Liked Songs</h1>
+                        </div>
+                    </div>
+                </div>
+            </Header>
+            <LikedContent songs={songs} />
+        </div>
+    );
+};
+
+export default Liked;
+
+

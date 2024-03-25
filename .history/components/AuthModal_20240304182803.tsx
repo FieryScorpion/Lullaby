@@ -1,0 +1,5 @@
+const AuthModal = () => {
+    return (
+        <Modal
+    )
+}
